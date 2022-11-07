@@ -5,16 +5,11 @@ export const loader = async () => {
 
   const query = `
   {
-    allContentfulAnimal {
-      nodes {
-        id
-        name
-      }
-    }
-    allShopifyProduct {
+    allContentfulDiary(sort: { fields: date, order: DESC }) {
       nodes {
         id
         title
+        weekend
       }
     }
   }
@@ -26,48 +21,34 @@ export const loader = async () => {
 
 const IndexRoute = () => {
   const {
-    allContentfulAnimal: { nodes: animals },
-    allShopifyProduct: { nodes: products }
+    allContentfulDiary: { nodes: entries }
   } = useLoaderData();
 
   return (
     <div>
-      <h1>Welcome to Remix + Gatsby Valhalla</h1>
-      <div className="grid grid-cols-2">
-        <div>
-          <h2>Contentful</h2>
-          <ul>
-            {animals.map((animal, index) => {
-              const { name, id } = animal;
+      <h1>NYC Diary | 2022</h1>
 
-              return (
-                <li key={index}>
-                  <Link to={`/animals/${id}`} prefetch="intent">
-                    {name}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div>
-          <h2>Shopify</h2>
-          <ul>
-            {products.map((product, index) => {
-              const { title, id } = product;
+      <div>
+        <h2>Diary Entries</h2>
+        <ul className="list-none m-0 p-0">
+          {entries.map((entry, index) => {
+            const { id, title, weekend } = entry;
 
-              return (
-                <li key={index}>
-                  <Link to={`/products/${id}`} prefetch="intent">
-                    {title}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+            return (
+              <li
+                key={index}
+                className={`m-0 my-4 p-0 rounded-lg border duration-300 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                  weekend ? 'border-orange-400' : 'border-sky-400'
+                }`}
+              >
+                <Link to={`/diary/${id}`} prefetch="intent" className={`block no-underline p-3 ${weekend ? 'text-orange-400' : 'text-sky-600'}`}>
+                  {title}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-      {/* <pre>{JSON.stringify(nodes, null, 2)}</pre> */}
     </div>
   );
 };
