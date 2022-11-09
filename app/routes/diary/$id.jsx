@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from '@remix-run/react';
-import Image from 'remix-image';
 
 export const loader = async ({ params }) => {
   const { client } = require('../../../utils/valhalla-client');
@@ -50,22 +49,7 @@ const DiaryRoute = () => {
         <h1 className="font-black text-3xl">{entry.title}</h1>
       </div>
       <div className="absolute top-0 left-0 w-full h-screen bg-cover bg-center z-1">
-        <Image
-          className="object-cover w-full h-full m-0"
-          loaderUrl="/api/image"
-          src={entry.photo.url}
-          // fit={true}
-          placeholder="blur"
-          responsive={[
-            {
-              size: {
-                width: '100vw',
-                height: '100vh'
-              }
-            }
-          ]}
-          // dprVariants={[1, 3]}
-        />
+        <img className="object-cover w-full h-full m-0" src={entry.photo.url} alt={entry.title} />
       </div>
       {/* <pre>{JSON.stringify(entry, null, 2)}</pre> */}
     </div>

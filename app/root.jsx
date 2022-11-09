@@ -1,5 +1,4 @@
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch } from '@remix-run/react';
-import remixImageStyles from 'remix-image/remix-image.css';
 
 import styles from './styles/app.css';
 
@@ -10,10 +9,7 @@ export const meta = () => ({
 });
 
 export const links = () => {
-  return [
-    { rel: 'stylesheet', href: styles },
-    { rel: 'stylesheet', href: remixImageStyles }
-  ];
+  return [{ rel: 'stylesheet', href: styles }];
 };
 
 export const ErrorBoundary = () => {
