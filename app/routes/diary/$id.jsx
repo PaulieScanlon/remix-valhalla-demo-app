@@ -35,22 +35,24 @@ export const loader = async ({ params }) => {
 };
 
 const DiaryRoute = () => {
-  const entry = useLoaderData();
+  const diary = useLoaderData();
 
   return (
-    <div className="relative">
-      <div className="relative grid gap-4 opacity-80 p-4 z-20 capitalize">
-        <Link to="/" className="relative flex gap-1 items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+    <div className="py-4">
+      <div className="grid gap-8">
+        <Link to="/" className="flex gap-1 items-center no-underline">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
           </svg>
           Back
         </Link>
-        <h1 className="font-black text-3xl">{entry.title}</h1>
+        <div>
+          <h1 className="font-black text-3xl m-0">{diary.title}</h1>
+          <p className="m-0">{diary.entry.entry}</p>
+        </div>
+        <img className="object-cover w-full h-full m-0" src={diary.photo.url} alt={diary.title} />
       </div>
-      <div className="absolute top-0 left-0 w-full h-screen bg-cover bg-center z-1">
-        <img className="object-cover w-full h-full m-0" src={entry.photo.url} alt={entry.title} />
-      </div>
+
       {/* <pre>{JSON.stringify(entry, null, 2)}</pre> */}
     </div>
   );

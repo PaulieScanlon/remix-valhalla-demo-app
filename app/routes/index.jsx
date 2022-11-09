@@ -1,4 +1,6 @@
 import { Link, useLoaderData } from '@remix-run/react';
+import { useState } from 'react';
+import Timeline from './timeline';
 
 export const loader = async () => {
   const { client } = require('../../utils/valhalla-client');
@@ -25,29 +27,21 @@ const IndexRoute = () => {
     allContentfulDiary: { nodes: entries }
   } = useLoaderData();
 
+  const [id, setId] = useState(null);
+
   return (
-    <div className="mx-auto max-w-3xl">
-      <h1>NYC Diary | 2022</h1>
-
+    <div className="flex flex-col gap-6 items-center justify-center h-screen">
       <div>
-        <h2>Diary Entries</h2>
-        <ul className="list-none m-0 p-0">
-          {entries.map((entry, index) => {
-            const { id, title, weekend } = entry;
-
-            return (
-              <li
-                key={index}
-                className={`m-0 my-4 p-0 border duration-300 transition-all hover:-translate-y-1 ${weekend ? 'border-zinc-600' : 'border-zinc-400'}`}
-              >
-                <Link to={`/diary/${id}`} prefetch="intent" className={`block no-underline p-3 ${weekend ? 'text-zinc-600' : 'text-zinc-400'}`}>
-                  {title}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <h1 className="m-0 mb-2 text-center">NYC Diary</h1>
+        <Timeline entries={entries} onAnimationComplete={setId} />
       </div>
+      {id ? (
+        <Link to={`/diary/${id}`} prefetch="intent" className="text-sm bg-pink-600 no-underline px-3 py-2 text-white/80">
+          Read Entry
+        </Link>
+      ) : (
+        <button className="disabled text-sm bg-white/10 px-3 py-2 text-white/20">Please Wait</button>
+      )}
     </div>
   );
 };
