@@ -1,4 +1,5 @@
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch } from '@remix-run/react';
+import remixImageStyles from 'remix-image/remix-image.css';
 
 import styles from './styles/app.css';
 
@@ -9,7 +10,10 @@ export const meta = () => ({
 });
 
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: remixImageStyles }
+  ];
 };
 
 export const ErrorBoundary = () => {
@@ -60,8 +64,8 @@ const App = () => {
         <Meta />
         <Links />
       </head>
-      <body>
-        <main className="prose mx-auto max-w-3xl">
+      <body className="bg-black text-white">
+        <main className="prose max-w-none">
           <Outlet />
           <ScrollRestoration />
           <Scripts />

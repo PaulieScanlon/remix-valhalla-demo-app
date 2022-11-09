@@ -10,6 +10,7 @@ export const loader = async () => {
         id
         title
         weekend
+        slug
       }
     }
   }
@@ -25,7 +26,7 @@ const IndexRoute = () => {
   } = useLoaderData();
 
   return (
-    <div>
+    <div className="mx-auto max-w-3xl">
       <h1>NYC Diary | 2022</h1>
 
       <div>
@@ -37,11 +38,9 @@ const IndexRoute = () => {
             return (
               <li
                 key={index}
-                className={`m-0 my-4 p-0 rounded-lg border duration-300 transition-all hover:shadow-lg hover:-translate-y-1 ${
-                  weekend ? 'border-orange-400' : 'border-sky-400'
-                }`}
+                className={`m-0 my-4 p-0 border duration-300 transition-all hover:-translate-y-1 ${weekend ? 'border-zinc-600' : 'border-zinc-400'}`}
               >
-                <Link to={`/diary/${id}`} prefetch="intent" className={`block no-underline p-3 ${weekend ? 'text-orange-400' : 'text-sky-600'}`}>
+                <Link to={`/diary/${id}`} prefetch="intent" className={`block no-underline p-3 ${weekend ? 'text-zinc-600' : 'text-zinc-400'}`}>
                   {title}
                 </Link>
               </li>

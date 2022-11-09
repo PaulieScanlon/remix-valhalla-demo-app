@@ -1,4 +1,5 @@
 import { Link, useLoaderData } from '@remix-run/react';
+import Image from 'remix-image';
 
 export const loader = async ({ params }) => {
   const { client } = require('../../../utils/valhalla-client');
@@ -34,17 +35,41 @@ export const loader = async ({ params }) => {
   return contentfulDiary;
 };
 
-const ProductssRoute = () => {
+const DiaryRoute = () => {
   const entry = useLoaderData();
 
   return (
-    <div>
-      <Link to="/" className="block">
-        Back
-      </Link>
-      <pre>{JSON.stringify(entry, null, 2)}</pre>
+    <div className="relative">
+      <div className="relative grid gap-4 opacity-80 p-4 z-20 capitalize">
+        <Link to="/" className="relative flex gap-1 items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back
+        </Link>
+        <h1 className="font-black text-3xl">{entry.title}</h1>
+      </div>
+      <div className="absolute top-0 left-0 w-full h-screen bg-cover bg-center z-1">
+        <Image
+          className="object-cover w-full h-full m-0"
+          loaderUrl="/api/image"
+          src={entry.photo.url}
+          // fit={true}
+          placeholder="blur"
+          responsive={[
+            {
+              size: {
+                width: '100vw',
+                height: '100vh'
+              }
+            }
+          ]}
+          // dprVariants={[1, 3]}
+        />
+      </div>
+      {/* <pre>{JSON.stringify(entry, null, 2)}</pre> */}
     </div>
   );
 };
 
-export default ProductssRoute;
+export default DiaryRoute;
