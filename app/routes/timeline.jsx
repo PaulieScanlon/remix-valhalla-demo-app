@@ -5,12 +5,12 @@ import { Draggable } from 'gsap/dist/Draggable';
 
 import { InertiaPlugin } from '../../gsap-bonus/InertiaPlugin';
 
-const Timeline = memo(({ entries, onAnimationComplete }) => {
+const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   const svgRef = useRef(null);
   const markerContainerRef = useRef(null);
 
-  const SPACER = 40;
-  const MARKER_WIDTH = 10;
+  const SPACER = 20;
+  const MARKER_WIDTH = 4;
   const MARKER_MIN_HEIGHT = 20;
   const MARKER_MIN_ALPHA = 0.3;
 
@@ -131,20 +131,21 @@ const Timeline = memo(({ entries, onAnimationComplete }) => {
         dragClickables: true
       })[0];
 
-      handleAnimation(Math.floor(entries.length - 1));
+      handleAnimation(startingIndex);
     }
   }, [isMounted]);
 
   return (
     <div className="flex justify-center">
       <svg ref={svgRef} width={SIZE_WIDTH} height={SIZE_HEIGHT} viewBox={`0,0, ${VIEWBOX_WIDTH},${VIEWBOX_HEIGHT}`}>
-        <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white translate-x-1/2">
+        <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white/60 translate-x-1/2">
           {entry}
         </text>
         <g transform={`matrix(1,0,0,1,${VIEWBOX_WIDTH / 2} ${OFFSET_Y})`}>
           <g ref={markerContainerRef}>
             <rect width={VIEWBOX_WIDTH} height={VIEWBOX_HEIGHT} y={0} className="cursor-move" />
             {entries.map((entry, index) => {
+              const { weekend } = entry;
               return (
                 <g key={index}>
                   <rect
@@ -155,7 +156,7 @@ const Timeline = memo(({ entries, onAnimationComplete }) => {
                     opacity={MARKER_MIN_ALPHA}
                     width={MARKER_WIDTH}
                     height={MARKER_MIN_HEIGHT}
-                    className="fill-pink-600 cursor-move"
+                    className={`${weekend ? 'fill-fuchsia-400' : 'fill-pink-600'} cursor-move`}
                   />
                 </g>
               );
@@ -169,9 +170,11 @@ const Timeline = memo(({ entries, onAnimationComplete }) => {
 
 Timeline.propTypes = {
   /** The diary entries */
-  entries: PropTypes.any,
+  entries: PropTypes.any.isRequired,
   /** Callback when animation is complete */
-  onAnimationComplete: PropTypes.func
+  onAnimationComplete: PropTypes.func.isRequired,
+  /** The marker to highlight by default */
+  startingIndex: PropTypes.number
 };
 
 export default Timeline;

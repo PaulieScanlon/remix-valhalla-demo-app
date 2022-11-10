@@ -1,13 +1,30 @@
+import { useState } from 'react';
 import { Link, useLoaderData } from '@remix-run/react';
+import Timeline from '../timeline';
+import CallToAction from '../call-to-action';
 
 export const loader = async ({ params }) => {
   const { client } = require('../../../utils/valhalla-client');
 
   const { id } = params;
 
-  const query = `
+  const allQuery = `
+  {
+    allContentfulDiary(sort: { fields: date, order: DESC }) {
+      nodes {
+        id
+        title
+        weekend
+        slug
+      }
+    }
+  }
+  `;
+
+  const idQuery = `
     query DiaryEntry($id: String) {
       contentfulDiary(id:{ eq: $id} ) {
+          id
           title
           date
           weekend
@@ -22,20 +39,30 @@ export const loader = async ({ params }) => {
   `;
 
   const {
-    data: { contentfulDiary }
-  } = await client.query(query, { id: id }).toPromise();
+    data: { contentfulDiary: diary }
+  } = await client.query(idQuery, { id: id }).toPromise();
 
-  if (!contentfulDiary) {
+  const {
+    data: {
+      allContentfulDiary: { nodes: entries }
+    }
+  } = await client.query(allQuery).toPromise();
+
+  if (!diary || !entries) {
     throw new Response('Not Found', {
       status: 404
     });
   }
 
-  return contentfulDiary;
+  return {
+    diary,
+    entries
+  };
 };
 
 const DiaryRoute = () => {
-  const diary = useLoaderData();
+  const { diary, entries } = useLoaderData();
+  const [id, setId] = useState(null);
 
   return (
     <div className="py-4">
@@ -46,14 +73,22 @@ const DiaryRoute = () => {
           </svg>
           Back
         </Link>
-        <div>
-          <h1 className="font-black text-3xl m-0">{diary.title}</h1>
-          <p className="m-0">{diary.entry.entry}</p>
+        <div className="grid grid-cols-2 gap-8">
+          <div>
+            <h1 className="font-black text-3xl m-0">{diary.title}</h1>
+            <p className="m-0 mb-8">{diary.entry.entry}</p>
+            <img className="object-cover w-full h-full m-0" src={diary.photo.url} alt={diary.title} />
+          </div>
+          <div className="flex flex-col gap-6 items-center">
+            <Timeline entries={entries} onAnimationComplete={setId} startingIndex={entries.findIndex((e) => e.id === diary.id)} />
+            <div>
+              <CallToAction id={id} />
+            </div>
+          </div>
         </div>
-        <img className="object-cover w-full h-full m-0" src={diary.photo.url} alt={diary.title} />
       </div>
 
-      {/* <pre>{JSON.stringify(entry, null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(entries, null, 2)}</pre> */}
     </div>
   );
 };
