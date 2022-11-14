@@ -99,7 +99,7 @@ const App = () => {
         <Links />
       </head>
       <body className="bg-black text-white">
-        <main className="prose max-w-none">
+        <main className="prose mx-auto max-w-none">
           <ValhallaLogo />
           <RemixLogo />
           <Outlet />

@@ -136,7 +136,7 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   }, [isMounted]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center w-full overflow-hidden">
       <svg ref={svgRef} width={SIZE_WIDTH} height={SIZE_HEIGHT} viewBox={`0,0, ${VIEWBOX_WIDTH},${VIEWBOX_HEIGHT}`}>
         <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white/80 translate-x-1/2">
           {entry}
