@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useLoaderData } from '@remix-run/react';
 
 export const loader = async ({ params }) => {
@@ -5,9 +6,23 @@ export const loader = async ({ params }) => {
 
   const { id } = params;
 
-  const query = `
+  const allQuery = `
+  {
+    allContentfulDiary(sort: { fields: date, order: DESC }) {
+      nodes {
+        id
+        title
+        weekend
+        slug
+      }
+    }
+  }
+  `;
+
+  const idQuery = `
     query DiaryEntry($id: String) {
       contentfulDiary(id:{ eq: $id} ) {
+          id
           title
           date
           weekend
@@ -22,36 +37,50 @@ export const loader = async ({ params }) => {
   `;
 
   const {
-    data: { contentfulDiary }
-  } = await client.query(query, { id: id }).toPromise();
+    data: { contentfulDiary: diary }
+  } = await client.query(idQuery, { id: id }).toPromise();
 
-  if (!contentfulDiary) {
+  const {
+    data: {
+      allContentfulDiary: { nodes: entries }
+    }
+  } = await client.query(allQuery).toPromise();
+
+  if (!diary || !entries) {
     throw new Response('Not Found', {
       status: 404
     });
   }
 
-  return contentfulDiary;
+  return {
+    diary,
+    entries
+  };
 };
 
 const DiaryRoute = () => {
-  const entry = useLoaderData();
+  const { diary, entries } = useLoaderData();
+  const [id, setId] = useState(null);
 
   return (
-    <div className="relative">
-      <div className="relative grid gap-4 opacity-80 p-4 z-20 capitalize">
-        <Link to="/" className="relative flex gap-1 items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+    <div className="py-4">
+      <div className="grid gap-8">
+        <Link to="/" className="flex gap-1 items-center no-underline">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
           </svg>
           Back
         </Link>
-        <h1 className="font-black text-3xl">{entry.title}</h1>
+        <div className="grid grid-cols-2 gap-8">
+          <div>
+            <h1 className="font-black text-3xl m-0">{diary.title}</h1>
+            <p className="m-0 mb-8">{diary.entry.entry}</p>
+            <img className="object-cover w-full h-full m-0" src={diary.photo.url} alt={diary.title} />
+          </div>
+        </div>
       </div>
-      <div className="absolute top-0 left-0 w-full h-screen bg-cover bg-center z-1">
-        <img className="object-cover w-full h-full m-0" src={entry.photo.url} alt={entry.title} />
-      </div>
-      {/* <pre>{JSON.stringify(entry, null, 2)}</pre> */}
+
+      {/* <pre>{JSON.stringify(entries, null, 2)}</pre> */}
     </div>
   );
 };
