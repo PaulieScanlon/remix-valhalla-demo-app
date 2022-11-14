@@ -1421,9 +1421,8 @@ video {
   line-height: 2.25rem;
 }
 
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
+.font-light {
+  font-weight: 300;
 }
 
 .font-bold {
@@ -1432,10 +1431,6 @@ video {
 
 .font-black {
   font-weight: 900;
-}
-
-.font-light {
-  font-weight: 300;
 }
 
 .text-white {
