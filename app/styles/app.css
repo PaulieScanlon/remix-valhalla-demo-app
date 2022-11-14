@@ -1166,10 +1166,6 @@ video {
   margin-right: auto;
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
 .ml-16 {
   margin-left: 4rem;
 }
@@ -1180,6 +1176,10 @@ video {
 
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .mb-8 {
@@ -1226,12 +1226,12 @@ video {
   width: 1.5rem;
 }
 
-.w-\[80px\] {
-  width: 80px;
-}
-
 .w-full {
   width: 100%;
+}
+
+.w-\[80px\] {
+  width: 80px;
 }
 
 .min-w-\[120px\] {
@@ -1252,6 +1252,10 @@ video {
 
 .max-w-4xl {
   max-width: 56rem;
+}
+
+.max-w-\[220px\] {
+  max-width: 220px;
 }
 
 .-rotate-6 {
@@ -1295,16 +1299,16 @@ video {
   gap: 2rem;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .gap-16 {
   gap: 4rem;
 }
 
 .gap-1 {
   gap: 0.25rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
 }
 
 .overflow-hidden {
@@ -1450,9 +1454,9 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-zinc-600 {
+.text-zinc-500 {
   --tw-text-opacity: 1;
-  color: rgb(82 82 91 / var(--tw-text-opacity));
+  color: rgb(113 113 122 / var(--tw-text-opacity));
 }
 
 .text-white\/20 {
@@ -1472,11 +1476,6 @@ video {
 .text-secondary {
   --tw-text-opacity: 1;
   color: rgb(139 135 234 / var(--tw-text-opacity));
-}
-
-.text-zinc-500 {
-  --tw-text-opacity: 1;
-  color: rgb(113 113 122 / var(--tw-text-opacity));
 }
 
 .no-underline {
@@ -1523,6 +1522,12 @@ video {
 
 .hover\:bg-zinc-800\/50:hover {
   background-color: rgb(39 39 42 / 0.5);
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1024px) {

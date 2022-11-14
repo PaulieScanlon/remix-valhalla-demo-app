@@ -92,7 +92,7 @@ const DiaryRoute = () => {
         </ul>
       </div>
       <div className="mx-auto max-w-4xl flex items-center min-h-screen">
-        <div className="grid lg:grid-cols-2 gap-16 items-center p-8">
+        <div className="grid md:grid-cols-2 gap-16 items-center p-8 overflow-hidden">
           <div className="-rotate-6">
             <div className="flex flex-col justify-center bg-white p-4">
               <Image
@@ -100,16 +100,18 @@ const DiaryRoute = () => {
                 src={diary.photo.url}
                 placeholder="blur"
                 alt={diary.photo.title}
-                className="w-full m-0"
+                placeholderAspectRatio="1:1"
+                className="m-0"
                 responsive={[
                   {
-                    size: {
-                      width: 300,
-                      height: 300
-                    },
-                    maxWidth: 400
+                    size: { width: 300, height: 300 }
+                  },
+                  {
+                    size: { width: 600, height: 600 }
                   }
                 ]}
+                dprVariants={[1, 3]}
+                style={{ minWidth: 100 }}
               />
               <p className="font-nanum text-3xl bg-transparent text-gray-600 text-center m-0 mt-4">{diary.photo.title}</p>
             </div>
