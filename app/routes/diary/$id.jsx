@@ -101,7 +101,7 @@ const DiaryRoute = () => {
                 placeholder="blur"
                 alt={diary.photo.title}
                 placeholderAspectRatio="1:1"
-                className="m-0"
+                className="min-w-[280px] min-h-[280px] sm:min-w-[400px] min-h-[400px] m-0"
                 responsive={[
                   {
                     size: { width: 300, height: 300 }
