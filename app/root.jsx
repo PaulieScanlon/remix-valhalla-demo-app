@@ -3,6 +3,9 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch }
 import styles from './styles/app.css';
 import remixImageStyles from 'remix-image/remix-image.css';
 
+import ValhallaLogo from './components/valhalla-logo';
+import RemixLogo from './components/remix-logo';
+
 export const meta = () => ({
   charset: 'utf-8',
   title: 'New Remix App',
@@ -66,6 +69,8 @@ const App = () => {
       </head>
       <body className="bg-black text-white">
         <main className="prose max-w-none">
+          <ValhallaLogo />
+          <RemixLogo />
           <Outlet />
           <ScrollRestoration />
           <Scripts />

@@ -1,6 +1,8 @@
-const Logo = () => {
+import PropTypes from 'prop-types';
+
+const Logo = ({ className }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 48" fill="currentColor" className="fill-alt mx-auto">
+    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 48" fill="currentColor" className={`fill-alt ${className}`}>
       <g>
         <path
           d="M17.3,26.8l-5.7-12.1L8.4,25.8c-0.6,2.3,1.3,2.3,0.9,3.5c-0.2,0.7-0.9,0.9-2.3,0.9H2.9c-1.3,0-1.7-0.6-1.5-1.4
@@ -70,6 +72,11 @@ const Logo = () => {
       <circle cx="100.1" cy="19.1" r="4.6" />
     </svg>
   );
+};
+
+Logo.propTypes = {
+  /** Class names to apply*/
+  className: PropTypes.string
 };
 
 export default Logo;

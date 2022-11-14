@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLoaderData } from '@remix-run/react';
 import Image from 'remix-image';
 
-import Logo from '../../components/logo';
+import NycDiaryLogo from '../../components/nyc-diary-logo';
 
 export const loader = async ({ params }) => {
   const { client } = require('../../../utils/valhalla-client');
@@ -93,7 +93,7 @@ const DiaryRoute = () => {
           </div>
 
           <div>
-            <Logo />
+            <NycDiaryLogo />
             <h2 className="font-black text-3xl m-0">{diary.title}</h2>
             <p className="m-0 mb-8">{diary.entry.entry}</p>
             <Link to="/" className="flex gap-1 items-center no-underline">
