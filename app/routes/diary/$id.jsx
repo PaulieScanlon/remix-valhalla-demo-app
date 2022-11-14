@@ -65,8 +65,6 @@ export const loader = async ({ params }) => {
 const DiaryRoute = () => {
   const { diary, entries, currentId } = useLoaderData();
 
-  console.log(currentId);
-
   return (
     <div className="ml-16 lg:ml-none">
       <div className="fixed inset-0 z-10 w-[80px] overflow-y-auto scrollbar-hide">
@@ -76,8 +74,6 @@ const DiaryRoute = () => {
 
             const isCurrent = id === currentId;
             const text = title.split(',');
-
-            console.log(isCurrent);
 
             return (
               <li key={index} className="m-0 p-0 ">
@@ -96,7 +92,7 @@ const DiaryRoute = () => {
         </ul>
       </div>
       <div className="mx-auto max-w-4xl flex items-center min-h-screen">
-        <div className="grid lg:grid-cols-2 gap-16 p-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center p-8">
           <div className="-rotate-6">
             <div className="flex flex-col justify-center bg-white p-4">
               <Image
