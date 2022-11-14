@@ -1218,16 +1218,16 @@ video {
   width: 1.25rem;
 }
 
+.w-full {
+  width: 100%;
+}
+
 .w-6 {
   width: 1.5rem;
 }
 
 .w-\[80px\] {
   width: 80px;
-}
-
-.w-full {
-  width: 100%;
 }
 
 .min-w-\[120px\] {

@@ -138,9 +138,11 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   return (
     <div className="flex justify-center w-full overflow-hidden">
       <svg ref={svgRef} width={SIZE_WIDTH} height={SIZE_HEIGHT} viewBox={`0,0, ${VIEWBOX_WIDTH},${VIEWBOX_HEIGHT}`}>
-        <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white/80 translate-x-1/2">
-          {entry}
-        </text>
+        <g>
+          <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white/80 translate-x-1/2">
+            {entry}
+          </text>
+        </g>
         <g transform={`matrix(1,0,0,1,${VIEWBOX_WIDTH / 2} ${OFFSET_Y})`}>
           <g ref={markerContainerRef}>
             <rect width={VIEWBOX_WIDTH} height={VIEWBOX_HEIGHT} y={0} className="cursor-move" />
