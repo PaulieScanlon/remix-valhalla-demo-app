@@ -41,7 +41,19 @@ const IndexRoute = () => {
           <h1 className="sr-only">NYC Diary</h1>
           <NycDiaryLogo className="mx-auto max-w-2xl px-4" />
           <h2 className="m-0 text-center">Just some stuff i've been doing</h2>
-          <p className="m-0 text-center">Gatsby Valhalla Content Hub + Remix Demo by @PaulieScanlon</p>
+          <p className="m-0 text-center font-light text-sm">
+            <a href="https://www.gatsbyjs.com/products/valhalla-content-hub/" target="_blank" rel="noreferrer" className="font-light">
+              Gatsby Valhalla Content Hub{' '}
+            </a>
+            +{' '}
+            <a href="https://remix.run/" target="_blank" rel="noreferrer" className="font-light">
+              Remix
+            </a>{' '}
+            Demo by{' '}
+            <a href="https://twitter.com/PaulieScanlon/" target="_blank" rel="noreferrer" className="font-light">
+              @PaulieScanlon
+            </a>
+          </p>
         </div>
         <Timeline entries={entries} onAnimationComplete={setId} startingIndex={Math.floor(entries.length - 1)} />
       </div>
