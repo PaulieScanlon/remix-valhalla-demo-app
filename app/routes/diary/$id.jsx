@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link, useLoaderData } from '@remix-run/react';
 import Image from 'remix-image';
 
+import Logo from '../../components/logo';
+
 export const loader = async ({ params }) => {
   const { client } = require('../../../utils/valhalla-client');
 
@@ -32,6 +34,7 @@ export const loader = async ({ params }) => {
           }
           photo {
             url
+            title
           }
       }
     }
@@ -64,38 +67,44 @@ const DiaryRoute = () => {
   const [id, setId] = useState(null);
 
   return (
-    <div className="py-4">
-      <div className="grid gap-8">
-        <Link to="/" className="flex gap-1 items-center no-underline">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
-          </svg>
-          Back
-        </Link>
-        <div className="grid grid-cols-2 gap-8">
+    <div>
+      <div className="mx-auto max-w-4xl flex items-center min-h-screen">
+        <div className="grid md:grid-cols-2 gap-16 p-16">
+          <div className="-rotate-6">
+            <div className="flex flex-col justify-center bg-white p-4">
+              <Image
+                loaderUrl="/api/image"
+                src={diary.photo.url}
+                placeholder="blur"
+                alt={diary.photo.title}
+                className="w-full m-0"
+                responsive={[
+                  {
+                    size: {
+                      width: 300,
+                      height: 300
+                    },
+                    maxWidth: 400
+                  }
+                ]}
+              />
+              <p className="font-nanum text-3xl bg-transparent text-gray-600 text-center m-0 mt-4">{diary.photo.title}</p>
+            </div>
+          </div>
+
           <div>
-            <h1 className="font-black text-3xl m-0">{diary.title}</h1>
+            <Logo />
+            <h2 className="font-black text-3xl m-0">{diary.title}</h2>
             <p className="m-0 mb-8">{diary.entry.entry}</p>
-            <Image
-              loaderUrl="/api/image"
-              src={diary.photo.url}
-              placeholder="blur"
-              responsive={[
-                {
-                  size: {
-                    width: 400,
-                    height: 400
-                  },
-                  maxWidth: 400
-                }
-              ]}
-            />
-            {/* <img className="object-cover w-full h-full m-0" src={diary.photo.url} alt={diary.title} /> */}
+            <Link to="/" className="flex gap-1 items-center no-underline">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+              Back
+            </Link>
           </div>
         </div>
       </div>
-
-      {/* <pre>{JSON.stringify(entries, null, 2)}</pre> */}
     </div>
   );
 };

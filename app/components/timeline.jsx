@@ -138,7 +138,7 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   return (
     <div className="flex justify-center">
       <svg ref={svgRef} width={SIZE_WIDTH} height={SIZE_HEIGHT} viewBox={`0,0, ${VIEWBOX_WIDTH},${VIEWBOX_HEIGHT}`}>
-        <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white/60 translate-x-1/2">
+        <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white/80 translate-x-1/2">
           {entry}
         </text>
         <g transform={`matrix(1,0,0,1,${VIEWBOX_WIDTH / 2} ${OFFSET_Y})`}>
@@ -156,7 +156,7 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
                     opacity={MARKER_MIN_ALPHA}
                     width={MARKER_WIDTH}
                     height={MARKER_MIN_HEIGHT}
-                    className={`${weekend ? 'fill-fuchsia-400' : 'fill-pink-600'} cursor-move`}
+                    className={`${weekend ? 'fill-secondary' : 'fill-primary'} cursor-move`}
                   />
                 </g>
               );

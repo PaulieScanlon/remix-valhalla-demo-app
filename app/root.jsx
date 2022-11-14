@@ -65,7 +65,7 @@ const App = () => {
         <Links />
       </head>
       <body className="bg-black text-white">
-        <main className="prose mx-auto max-w-3xl">
+        <main className="prose max-w-none">
           <Outlet />
           <ScrollRestoration />
           <Scripts />

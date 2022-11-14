@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'NanumPenScript';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url('/fonts/NanumPenScript-Regular.woff2') format('woff2'), url('/fonts/NanumPenScript-Regular.woff') format('woff');
+}
