@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Link, useLoaderData } from '@remix-run/react';
-import Timeline from '../timeline';
-import CallToAction from '../call-to-action';
 
 export const loader = async ({ params }) => {
   const { client } = require('../../../utils/valhalla-client');
@@ -78,12 +76,6 @@ const DiaryRoute = () => {
             <h1 className="font-black text-3xl m-0">{diary.title}</h1>
             <p className="m-0 mb-8">{diary.entry.entry}</p>
             <img className="object-cover w-full h-full m-0" src={diary.photo.url} alt={diary.title} />
-          </div>
-          <div className="flex flex-col gap-6 items-center">
-            <Timeline entries={entries} onAnimationComplete={setId} startingIndex={entries.findIndex((e) => e.id === diary.id)} />
-            <div>
-              <CallToAction id={id} />
-            </div>
           </div>
         </div>
       </div>

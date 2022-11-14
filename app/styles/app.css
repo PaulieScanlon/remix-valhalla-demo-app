@@ -1180,12 +1180,12 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.cursor-move {
-  cursor: move;
-}
-
 .cursor-not-allowed {
   cursor: not-allowed;
+}
+
+.cursor-move {
+  cursor: move;
 }
 
 .grid-cols-2 {
@@ -1230,81 +1230,16 @@ video {
   background-color: rgb(255 255 255 / 0.1);
 }
 
-.bg-sky-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(2 132 199 / var(--tw-bg-opacity));
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
-}
-
-.bg-violet-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(124 58 237 / var(--tw-bg-opacity));
-}
-
-.bg-lime-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(101 163 13 / var(--tw-bg-opacity));
-}
-
-.bg-indigo-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
-}
-
-.bg-indigo-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(129 140 248 / var(--tw-bg-opacity));
-}
-
-.bg-indigo-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(67 56 202 / var(--tw-bg-opacity));
-}
-
-.bg-indigo-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 48 163 / var(--tw-bg-opacity));
-}
-
-.bg-indigo-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(49 46 129 / var(--tw-bg-opacity));
-}
-
-.fill-white {
-  fill: #fff;
-}
-
-.fill-pink-600 {
-  fill: #db2777;
-}
-
-.fill-white\/30 {
-  fill: rgb(255 255 255 / 0.3);
-}
-
 .fill-white\/60 {
   fill: rgb(255 255 255 / 0.6);
 }
 
-.fill-pink-200 {
-  fill: #fbcfe8;
-}
-
-.fill-pink-400 {
-  fill: #f472b6;
-}
-
-.fill-amber-400 {
-  fill: #fbbf24;
-}
-
 .fill-fuchsia-400 {
   fill: #e879f9;
+}
+
+.fill-pink-600 {
+  fill: #db2777;
 }
 
 .object-cover {
@@ -1350,22 +1285,10 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-white\/80 {
-  color: rgb(255 255 255 / 0.8);
-}
-
 .text-white\/20 {
   color: rgb(255 255 255 / 0.2);
 }
 
-.text-white\/90 {
-  color: rgb(255 255 255 / 0.9);
-}
-
 .no-underline {
   text-decoration-line: none;
-}
-
-.disabled\:cursor-not-allowed:disabled {
-  cursor: not-allowed;
 }

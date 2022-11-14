@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData, Link } from '@remix-run/react';
 import Timeline from './timeline';
-import CallToAction from './call-to-action';
 
 export const loader = async () => {
   const { client } = require('../../utils/valhalla-client');
@@ -39,7 +38,13 @@ const IndexRoute = () => {
         <h1 className="m-0 mb-2 text-center">NYC Diary</h1>
         <Timeline entries={entries} onAnimationComplete={setId} startingIndex={Math.floor(entries.length - 1)} />
       </div>
-      <CallToAction id={id} />
+      {id ? (
+        <Link to={`/diary/${id}`} prefetch="intent" className="text-sm bg-pink-600 no-underline px-3 py-2 text-center text-white min-w-[120px]">
+          Read Entry
+        </Link>
+      ) : (
+        <button className="disabled cursor-not-allowed text-sm bg-white/10 px-3 py-2 text-white/20 min-w-[120px]">Please Wait</button>
+      )}
     </div>
   );
 };
