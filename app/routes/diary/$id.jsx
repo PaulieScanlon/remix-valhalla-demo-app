@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link, useLoaderData } from '@remix-run/react';
 import Image from 'remix-image';
 
@@ -58,13 +57,15 @@ export const loader = async ({ params }) => {
 
   return {
     diary,
-    entries
+    entries,
+    currentId: id
   };
 };
 
 const DiaryRoute = () => {
-  const { diary, entries } = useLoaderData();
-  const [id, setId] = useState(null);
+  const { diary, entries, currentId } = useLoaderData();
+
+  console.log(currentId);
 
   return (
     <div className="ml-16 lg:ml-none">
@@ -72,7 +73,11 @@ const DiaryRoute = () => {
         <ul className="list-none m-0 p-0 shadow-lg">
           {entries.map((entry, index) => {
             const { id, title, weekend } = entry;
+
+            const isCurrent = id === currentId;
             const text = title.split(',');
+
+            console.log(isCurrent);
 
             return (
               <li key={index} className="m-0 p-0 ">
@@ -80,10 +85,10 @@ const DiaryRoute = () => {
                   to={`/diary/${id}`}
                   className={`flex flex-col ${
                     weekend ? 'bg-zinc-800/80' : 'bg-zinc-800'
-                  } justify-center no-underline w-[80px] h-[80px] transition-color duration-300 hover:bg-zinc-700`}
+                  } justify-center no-underline w-[80px] h-[80px] transition-color duration-300 hover:bg-zinc-800/50`}
                 >
-                  <span className="bg-transparent text-[8px] text-center">{text[1]}</span>
-                  <span className="bg-transparent font-bold text-[11px] text-center">{text[0]}</span>
+                  <span className={`bg-transparent text-[8px] text-center ${isCurrent ? 'text-primary' : 'text-white'} `}>{text[1]}</span>
+                  <span className={`bg-transparent font-bold text-[11px] text-center  ${isCurrent ? 'text-primary' : 'text-white'}`}>{text[0]}</span>
                 </Link>
               </li>
             );
@@ -115,15 +120,15 @@ const DiaryRoute = () => {
           </div>
 
           <div>
-            <NycDiaryLogo />
-            <h2 className="font-black text-3xl m-0 mb-2">{diary.title}</h2>
-            <p className="m-0 mb-8">{diary.entry.entry}</p>
-            <Link to="/" className="flex gap-1 items-center no-underline text-secondary">
+            <Link to="/" className="flex gap-1 items-center no-underline text-secondary mb-6">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" className="stroke-secondary" />
               </svg>
               Back
             </Link>
+            <NycDiaryLogo />
+            <h2 className="font-black text-3xl m-0 mb-2">{diary.title}</h2>
+            <p className="m-0 mb-8">{diary.entry.entry}</p>
           </div>
         </div>
       </div>
