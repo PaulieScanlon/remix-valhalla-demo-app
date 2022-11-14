@@ -9,7 +9,7 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   const svgRef = useRef(null);
   const markerContainerRef = useRef(null);
 
-  const SPACER = 20;
+  const SPACER = 40;
   const MARKER_WIDTH = 4;
   const MARKER_MIN_HEIGHT = 20;
   const MARKER_MIN_ALPHA = 0.3;
