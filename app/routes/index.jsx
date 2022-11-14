@@ -31,8 +31,14 @@ export const loader = async () => {
 
 const IndexRoute = () => {
   const { entries } = useLoaderData();
+  const [status, setStatus] = useState({ id: null, entry: null });
 
-  const [id, setId] = useState(null);
+  const callback = (id, entry) => {
+    setStatus({
+      id,
+      entry
+    });
+  };
 
   return (
     <div className="flex flex-col gap-6 items-center justify-center h-screen">
@@ -55,10 +61,13 @@ const IndexRoute = () => {
             </a>
           </p>
         </div>
-        <Timeline entries={entries} onAnimationComplete={setId} startingIndex={Math.floor(entries.length - 1)} />
+        <div className="flex flex-col gap-2 items-center justify-center w-full overflow-hidden">
+          <h3 className="m-0 text-center text-base text-zinc-500 font-normal h-[30px]">{status.entry}</h3>
+          <Timeline entries={entries} callback={callback} startingIndex={Math.floor(entries.length - 1)} />
+        </div>
       </div>
-      {id ? (
-        <Link to={`/diary/${id}`} prefetch="intent" className="text-sm bg-alt no-underline rounded px-3 py-2 text-center text-white min-w-[120px]">
+      {status.id ? (
+        <Link to={`/diary/${status.id}`} prefetch="intent" className="text-sm bg-alt no-underline rounded px-3 py-2 text-center text-white min-w-[120px]">
           Read Entry
         </Link>
       ) : (

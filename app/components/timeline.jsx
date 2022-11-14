@@ -5,7 +5,7 @@ import { Draggable } from 'gsap/dist/Draggable';
 
 import { InertiaPlugin } from '../../gsap-bonus/InertiaPlugin';
 
-const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
+const Timeline = memo(({ entries, callback, startingIndex }) => {
   const svgRef = useRef(null);
   const markerContainerRef = useRef(null);
 
@@ -17,7 +17,6 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   const MIN_DRAG_X = -(entries.length - 1) * SPACER;
   const VIEWBOX_WIDTH = SPACER * entries.length;
   const VIEWBOX_HEIGHT = 120;
-  const OFFSET_Y = 40;
 
   const SIZE_WIDTH = VIEWBOX_WIDTH;
   const SIZE_HEIGHT = VIEWBOX_HEIGHT;
@@ -27,7 +26,6 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [snapArray, setSnapArray] = useState([]);
-  const [entry, setEntry] = useState('');
 
   const [mtl, setMtl] = useState({
     timeline: gsap.timeline({ paused: true, smoothChildTiming: true })
@@ -38,9 +36,8 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
 
   const handleAnimationStart = () => {
     if (isMounted) {
-      setEntry('');
       setIsAnimating(true);
-      onAnimationComplete(null);
+      callback(null, null);
     }
   };
 
@@ -58,9 +55,8 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   const handleAnimationComplete = () => {
     const entry = entries[Math.abs(Math.abs(_x / SPACER))];
     if (isMounted) {
-      setEntry(entry.title);
       setIsAnimating(false);
-      onAnimationComplete(entry.id);
+      callback(entry.id, entry.title);
     }
   };
 
@@ -136,37 +132,30 @@ const Timeline = memo(({ entries, onAnimationComplete, startingIndex }) => {
   }, [isMounted]);
 
   return (
-    <div className="flex justify-center w-full overflow-hidden">
-      <svg ref={svgRef} width={SIZE_WIDTH} height={SIZE_HEIGHT} viewBox={`0,0, ${VIEWBOX_WIDTH},${VIEWBOX_HEIGHT}`}>
-        <g>
-          <text y={OFFSET_Y / 2} textAnchor="middle" className="fill-white/80 translate-x-1/2">
-            {entry}
-          </text>
+    <svg ref={svgRef} width={SIZE_WIDTH} height={SIZE_HEIGHT} viewBox={`0,0, ${VIEWBOX_WIDTH},${VIEWBOX_HEIGHT}`}>
+      <g transform={`matrix(1,0,0,1,${VIEWBOX_WIDTH / 2} 0)`}>
+        <g ref={markerContainerRef}>
+          <rect width={VIEWBOX_WIDTH} height={VIEWBOX_HEIGHT} y={0} className="cursor-move" />
+          {entries.map((entry, index) => {
+            const { weekend } = entry;
+            return (
+              <g key={index}>
+                <rect
+                  ref={(ref) => {
+                    markerRefs.push(ref);
+                  }}
+                  x={index * SPACER}
+                  opacity={MARKER_MIN_ALPHA}
+                  width={MARKER_WIDTH}
+                  height={MARKER_MIN_HEIGHT}
+                  className={`${weekend ? 'fill-secondary' : 'fill-primary'} cursor-move`}
+                />
+              </g>
+            );
+          })}
         </g>
-        <g transform={`matrix(1,0,0,1,${VIEWBOX_WIDTH / 2} ${OFFSET_Y})`}>
-          <g ref={markerContainerRef}>
-            <rect width={VIEWBOX_WIDTH} height={VIEWBOX_HEIGHT} y={0} className="cursor-move" />
-            {entries.map((entry, index) => {
-              const { weekend } = entry;
-              return (
-                <g key={index}>
-                  <rect
-                    ref={(ref) => {
-                      markerRefs.push(ref);
-                    }}
-                    x={index * SPACER}
-                    opacity={MARKER_MIN_ALPHA}
-                    width={MARKER_WIDTH}
-                    height={MARKER_MIN_HEIGHT}
-                    className={`${weekend ? 'fill-secondary' : 'fill-primary'} cursor-move`}
-                  />
-                </g>
-              );
-            })}
-          </g>
-        </g>
-      </svg>
-    </div>
+      </g>
+    </svg>
   );
 });
 
@@ -174,7 +163,7 @@ Timeline.propTypes = {
   /** The diary entries */
   entries: PropTypes.any.isRequired,
   /** Callback when animation is complete */
-  onAnimationComplete: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
   /** The marker to highlight by default */
   startingIndex: PropTypes.number
 };
