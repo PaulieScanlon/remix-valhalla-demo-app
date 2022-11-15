@@ -1,2 +1,3 @@
 # remix-valhalla-demo-app
-Valhalla Repo for Remix Demo App
+
+Gatsby Valhalla Remix Demo App
