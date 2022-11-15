@@ -15,7 +15,6 @@ export const loader = async ({ params }) => {
         id
         title
         weekend
-        slug
       }
     }
   }
