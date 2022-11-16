@@ -45,8 +45,8 @@ const IndexRoute = () => {
         <div>
           <h1 className="sr-only">NYC Diary</h1>
           <NycDiaryLogo className="mx-auto max-w-2xl px-4" />
-          <h2 className="m-0 text-center">Just some stuff i've been doing</h2>
-          <p className="m-0 text-center font-light text-sm">
+          <h2 className="m-0 text-center text-2xl sm:text-4xl">Just some stuff I've been doing</h2>
+          <p className="m-0 text-center font-light">
             <a href="https://www.gatsbyjs.com/products/valhalla-content-hub/" target="_blank" rel="noreferrer" className="font-light">
               Gatsby Valhalla Content Hub{' '}
             </a>
@@ -61,7 +61,7 @@ const IndexRoute = () => {
           </p>
         </div>
         <div className="flex flex-col gap-2 items-center justify-center w-full overflow-hidden">
-          <h3 className="m-0 text-center text-base text-zinc-500 font-normal h-[30px]">{status.entry}</h3>
+          <h3 className="m-0 text-center text-base text-zinc-300 font-normal h-[30px]">{status.entry}</h3>
           <Timeline entries={entries} callback={callback} startingIndex={Math.floor(entries.length - 1)} />
         </div>
       </div>
@@ -72,6 +72,12 @@ const IndexRoute = () => {
       ) : (
         <button className="disabled cursor-not-allowed rounded text-sm bg-white/10 px-3 py-2 text-white/20 min-w-[120px]">Please Wait</button>
       )}
+      <p className="m-0 mt-4 text-center font-light text-xs text-zinc-400">
+        You can read more about how this site was made on the{' '}
+        <a href="https://www.gatsbyjs.com/blog/what-is-gatsbys-valhalla-content-hub/" target="_blank" rel="noreferrer" className="font-light">
+          Gatsby Blog
+        </a>
+      </p>
     </div>
   );
 };
