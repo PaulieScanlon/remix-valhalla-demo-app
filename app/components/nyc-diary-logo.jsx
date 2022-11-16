@@ -2,7 +2,13 @@ import PropTypes from 'prop-types';
 
 const Logo = ({ className }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 48" fill="currentColor" className={`fill-alt ${className}`}>
+    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 48" fill="url(#logo-gradient)" className={`${className}`}>
+      <defs>
+        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" className="[--start-color:theme(colors.alt)]" stopColor="var(--start-color)" />
+          <stop offset="100%" className="[--end-color:theme(colors.primary)]" stopColor="var(--end-color)" />
+        </linearGradient>
+      </defs>
       <g>
         <path
           d="M17.3,26.8l-5.7-12.1L8.4,25.8c-0.6,2.3,1.3,2.3,0.9,3.5c-0.2,0.7-0.9,0.9-2.3,0.9H2.9c-1.3,0-1.7-0.6-1.5-1.4
