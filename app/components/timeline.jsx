@@ -161,7 +161,13 @@ const Timeline = memo(({ entries, callback, startingIndex }) => {
 
 Timeline.propTypes = {
   /** The diary entries */
-  entries: PropTypes.any.isRequired,
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      weekend: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(undefined)])
+    })
+  ),
   /** Callback when animation is complete */
   callback: PropTypes.func.isRequired,
   /** The marker to highlight by default */
