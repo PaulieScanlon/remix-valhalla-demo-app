@@ -31,7 +31,9 @@ const Timeline = memo(({ entries, callback, startingIndex }) => {
     timeline: gsap.timeline({ paused: true, smoothChildTiming: true })
   });
 
-  // This is a hacky work-around because posX gets updated after needed, resulting in the callback returning the wrong index
+  // This is a "hacky" work-around because _x is updated on each animation tick.
+  // _x is needed by handleAnimationComplete to determine the current entry id and title
+
   let _x = 0;
 
   const handleAnimationStart = () => {
