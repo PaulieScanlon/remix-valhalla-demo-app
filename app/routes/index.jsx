@@ -9,7 +9,7 @@ export const loader = async () => {
 
   const query = `
   {
-    allContentfulDiary(sort: { fields: date, order: DESC }) {
+    allContentfulDiary(sort: { fields: date, order: ASC }) {
       nodes {
         id
         title

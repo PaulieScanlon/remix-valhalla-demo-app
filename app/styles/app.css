@@ -1363,10 +1363,6 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.fill-alt {
-  fill: #ff3d78;
-}
-
 .fill-zinc-600 {
   fill: #52525b;
 }
@@ -1520,12 +1516,12 @@ video {
   transition-duration: 300ms;
 }
 
-.\[--end-color\:theme\(colors\.primary\)\] {
-  --end-color: #f056c7;
-}
-
 .\[--start-color\:theme\(colors\.alt\)\] {
   --start-color: #ff3d78;
+}
+
+.\[--end-color\:theme\(colors\.primary\)\] {
+  --end-color: #f056c7;
 }
 
 @font-face {
