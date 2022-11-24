@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html,
+  body {
+    @apply antialiased text-white bg-black;
+  }
+}
+
 @font-face {
   font-family: 'NanumPenScript';
   font-style: normal;

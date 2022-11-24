@@ -25,14 +25,16 @@ export const ErrorBoundary = () => {
   return (
     <html>
       <head>
-        <title>Oh no!</title>
+        <title>404!</title>
         <Meta />
         <Links />
       </head>
       <body>
-        <main className="prose mx-auto max-w-3xl">
-          <h1>404</h1>
-          <p>Page Not Found</p>
+        <main className="prose mx-auto max-w-3xl text-center">
+          <div className="p-16">
+            <h1 className="text-8xl m-0 mb-4">404</h1>
+            <h2 className="m-0 mb-2 text-red-600">Valhalla API Error</h2>
+          </div>
           <Scripts />
         </main>
       </body>
@@ -45,16 +47,16 @@ export const CatchBoundary = () => {
   return (
     <html>
       <head>
-        <title>Oh no!</title>
+        <title>Error!</title>
         <Meta />
         <Links />
       </head>
       <body>
         <main className="prose mx-auto max-w-3xl">
-          <h1>404</h1>
-          <p>
-            {caught.status} {caught.statusText}
-          </p>
+          <div className="p-16">
+            <h1 className="text-8xl m-0 mb-4">404</h1>
+            <h2 className="m-0 mb-2 text-red-600">Valhalla API Error</h2>
+          </div>
           <Scripts />
         </main>
       </body>
